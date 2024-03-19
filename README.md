@@ -1,5 +1,6 @@
 # WebTunnel
-
+# ATTENTION: OFFICIAL TOR PROJECT WITHOUT MODIFICATION. JUST FOR PERSONAL USE
+ 
 Pluggable Transport based on HTTP Upgrade(HTTPT)
 
 WebTunnel is pluggable transport that attempt to imitate web browsing activities based on [HTTPT](https://censorbib.nymity.ch/#Frolov2020b).
