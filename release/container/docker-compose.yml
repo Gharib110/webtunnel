@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+    webtunnel-bridge:
+        restart: always
+        environment:
+            - NICKNAME=$BRIDGE_NICKNAME
+            - PT_PORT=15000
+            - OR_PORT=$GENEDORPORT
+            - EMAIL=$OPERATOR_EMAIL
+            - WEBTUNNEL_URL=$URL
+        volumes:
+            - 'webtunnel-tor-state:/var/lib/tor'
+        user: debian-tor
+        ports:
+            - '127.0.0.1:15000:15000'
+            - '$GENEDORPORT:$GENEDORPORT'
+        container_name: webtunnelBridge
+        image: 'thetorproject/webtunnel-bridge:latest'
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+    watchtower:
+        restart: always
+        image: containrrr/watchtower
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/timezone:/etc/timezone:ro
+        environment:
+            - WATCHTOWER_CLEANUP=true
+            - WATCHTOWER_LABEL_ENABLE=true
+            - WATCHTOWER_INCLUDE_RESTARTING=true
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+volumes:
+  webtunnel-tor-state:
+

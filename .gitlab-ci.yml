@@ -1,0 +1,62 @@
+stages:
+  - test
+  - build
+  - container
+
+unit_test:
+  image: golang:1.18-bullseye
+  stage: test
+  variables:
+    GOARCH: amd64
+  tags:
+    - amd64
+  script: ./release/test.sh
+
+unit_test_arm64:
+  extends: unit_test
+  variables:
+    GOARCH: arm64
+  tags:
+    - arm64
+
+build_amd64_linux:
+  image: golang:1.18-bullseye
+  stage: build
+  variables:
+    GOARCH: amd64
+    GOOS: linux
+  tags:
+    - amd64
+  artifacts:
+    paths:
+      - build/amd64-linux/
+  script: ./release/build.sh
+
+build_arm64_linux:
+  extends: build_amd64_linux
+  stage: build
+  variables:
+    GOARCH: arm64
+    GOOS: linux
+  artifacts:
+    paths:
+      - build/arm64-linux/
+
+
+build-server-container:
+  stage: container
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.1-debug
+    entrypoint: [""]
+  script:
+    - mkdir ${CI_PROJECT_DIR}/container_image
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "webtunnel-server"
+      --tar-path="${CI_PROJECT_DIR}/container_image/webtunnel-server.tar"
+      --no-push
+      --reproducible
+  artifacts:
+    paths:
+      - container_image/webtunnel-server.tar
