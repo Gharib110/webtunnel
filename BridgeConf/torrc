@@ -1,0 +1,11 @@
+RunAsDaemon 1
+ORPort 36889               ## Choose a Random Port
+ExtORPort auto 
+ExitPolicy reject *:*      ## You will not be a exit node, In many datacenter being a exit node is illegal !
+BridgeRelay 1
+PublishServerDescriptor 0  ## It will not be public bridge, 0 makes it private
+ServerTransportPlugin webtunnel exec /usr/local/bin/webtunnel
+ServerTransportListenAddr webtunnel 127.0.0.1:15003
+ServerTransportOptions webtunnel url=https://exampl.org/path
+ContactInfo your@email.com
+Nickname NIKNAME
