@@ -28,6 +28,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("error in setup: %s", err)
 	}
+	pt.ReportVersion("webtunnel", webtunnel.Version)
+
 	listeners := make([]net.Listener, 0)
 	for _, bindaddr := range ptInfo.Bindaddrs {
 		if bindaddr.MethodName != ptMethodName {

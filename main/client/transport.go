@@ -30,6 +30,7 @@ func (t Transport) Dial() (net.Conn, error) {
 	for _, addr := range t.config.RemoteAddresses {
 		if tcpConn, err := net.Dial("tcp", addr); err == nil {
 			conn = tcpConn
+			break
 		}
 	}
 	if conn == nil {
