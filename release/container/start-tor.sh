@@ -45,6 +45,8 @@ ContactInfo ${EMAIL}
 
 ServerTransportOptions webtunnel url=${WEBTUNNEL_URL}
 
+AssumeReachable 1
+
 $ADDITIONAL_VARIABLES
 EOF
 

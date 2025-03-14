@@ -21,3 +21,30 @@ Log info
 ## Running a WebTunnel Bridge
 
 You can help censored users connect to the Tor network by running a WebTunnel bridge, see our [community documentation](https://community.torproject.org/relay/setup/webtunnel/) for more details.
+
+## WebTunnel Client Bridgeline Format
+
+#### url: string
+
+`url` determines the HTTP layer host and path.
+
+It should be an HTTPS protocol URL string that points to the server endpoint where the WebTunnel Bridge is hosted.
+
+#### version: string
+
+`version` determines the version of the server. This allows the client to adjust its protocol based on the options supported on the server side.
+
+#### addr: string
+
+`addr` determines the Network Layer (TCP) endpoint of the server. By default, it is the same as the host with the port from the URL. (lyrebird version)
+
+#### servername: string
+
+`servername` determines the Transport Layer Security (TLS) server name indication. By default, it is the same as the host without the port from the URL.
+
+#### utls: enum
+
+`utls` determines the utls tls client hello fingerpint.
+
+valid vlues are:
+- `none` : use go's default tls fingerprint

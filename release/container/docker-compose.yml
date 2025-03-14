@@ -12,7 +12,6 @@ services:
         user: debian-tor
         ports:
             - '127.0.0.1:15000:15000'
-            - '$GENEDORPORT:$GENEDORPORT'
         container_name: webtunnelBridge
         image: 'thetorproject/webtunnel-bridge:latest'
         labels:
